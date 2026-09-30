@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محصولات — NOVA STORE</title>
+    <meta name="description" content="فروشگاه پوشاک NOVA STORE — کت، پیراهن، اورشرت و ست مردانه با نمایش تعاملی و طراحی مدرن.">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/light-theme.css">
+    <link rel="stylesheet" href="/css/dark-theme.css">
+    <style>        .catalog-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            flex: 1;
+            justify-content: flex-end;
+        }
+        .search-shell { flex: 1; min-width: 220px; max-width: 420px; }
+        .toolbar-row { display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap; margin-top: 1rem; }
+        .result-count { font-size: 0.82rem; color: var(--text-muted); font-weight: 600; }
+        @media (max-width: 768px) {
+            .catalog-controls { justify-content: flex-start; width: 100%; }
+            .search-shell { max-width: none; }
+        }
+</style>
+</head>
+<body>
+    <div class="ambient-bg"></div>
+    <div class="boot-loader" aria-hidden="true">
+        <div class="boot-ring"><span class="boot-logo">🛒</span></div>
+        <div class="boot-title">NOVA <b>STORE</b></div>
+        <div class="boot-bar"></div>
+    </div>
+
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="/" class="navbar-brand">
+                <span class="brand-mark">🛒</span>
+                <span class="brand-name">NOVA <b>STORE</b></span>
+            </a>
+            <div class="navbar-menu">
+                <a href="/" class="nav-link">خانه</a>
+                <a href="/products" class="nav-link active">محصولات</a>
+                <a href="/about" class="nav-link">درباره ما</a>
+                <a href="/cart" class="nav-link" id="cart-link">سبد خرید</a>
+                <a href="/orders" class="nav-link">سفارش‌های من</a>
+                <a href="/login" class="nav-link" id="login-link">ورود</a>
+                <a href="/admin" class="nav-link" id="admin-link" style="display:none">پنل مدیریت</a>
+                <div class="nav-actions">
+                    <div style="position:relative">
+                        <button id="sound-toggle" class="icon-btn" aria-label="تنظیمات صدا" title="تنظیمات صدا">🔇</button>
+                        <span class="sound-pop" id="sound-pop">
+                            <div class="sound-row"><span>صدا</span>
+                                <label class="switch"><input type="checkbox" id="sound-switch"><span class="track"></span></label>
+                            </div>
+                            <input type="range" id="sound-volume" min="0" max="1" step="0.05" aria-label="بلندی صدا">
+                            <div class="sound-label">بلندی صدا</div>
+                        </span>
+                    </div>
+                    <button id="theme-toggle" class="icon-btn" aria-label="تغییر تم">☀️</button>
+                    <a href="/products?wishlist=1" class="icon-btn" aria-label="علاقه‌مندی‌ها" title="علاقه‌مندی‌ها">♥<span class="badge-count" id="wl-count" style="display:none">0</span></a>
+                    <a href="#" id="cart-icon-btn" class="icon-btn" aria-label="سبد خرید" onclick="return false;">
+                        🛍<span class="badge-count" id="cart-count">0</span>
+                    </a>
+                    <button id="logout-btn" class="icon-btn" style="display:none" aria-label="خروج">⎋</button>
+                    <button id="hamburger" class="hamburger" aria-label="منو"><span></span><span></span><span></span></button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="section-head reveal">
+            <div>
+                <span class="eyebrow">Shop</span>
+                <h2>کالکشن پوشاک مردانه</h2>
+                <p class="section-desc">کت، پیراهن، اورشرت و ست‌های کامل؛ هر محصول با نمایش تعاملی و جزئیات دقیق معرفی می‌شود.</p>
+            </div>
+            <div class="catalog-controls">
+                <div class="search-shell">
+                    <svg class="search-icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+                    <input type="text" id="search-input" class="search-box" placeholder="جستجو در محصولات..." aria-label="جستجو" autocomplete="off">
+                    <div class="search-suggestions" id="search-suggestions"></div>
+                </div>
+                <select id="sort-select" class="sort-select" aria-label="مرتب‌سازی">
+                    <option value="featured">پیش‌فرض</option>
+                    <option value="price-asc">ارزان‌ترین</option>
+                    <option value="price-desc">گران‌ترین</option>
+                    <option value="discount">بیشترین تخفیف</option>
+                </select>
+                <select id="category-filter" class="category-filter" aria-label="فیلتر دسته‌بندی">
+                    <option value="all">همه دسته‌بندی‌ها</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="toolbar-row reveal">
+            <div class="chip-row" id="category-chips"></div>
+            <span class="result-count" id="result-count"></span>
+        </div>
+
+        <div id="products-list" class="products-grid"></div>
+    </main>
+
+    <footer class="footer">
+        <div class="foot-brand">NOVA STORE</div>
+        <nav class="foot-links" aria-label="لینک‌های پاورقی">
+            <a href="/">خانه</a>
+            <a href="/products">محصولات</a>
+            <a href="/cart">سبد خرید</a>
+            <a href="/orders">سفارش‌های من</a>
+            <a href="/about">درباره ما</a>
+            <a href="/login">ورود / ثبت‌نام</a>
+        </nav>
+        <a class="foot-credit" href="/about">✦ Created by MatinAlinaghian</a>
+    </footer>
+
+    <script src="/js/theme.js"></script>
+    <script src="/js/sound.js"></script>
+    <script src="/js/toast.js"></script>
+    <script src="/js/motion.js"></script>
+    <script src="/js/product3d.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+
+
+html[data-theme="summer"] {
+    
+    --bg-primary: #FBF6F0;
+    --bg-secondary: #F3EAD9;
+    --bg-tertiary: #EDE2D3;
+    --surface: rgba(255, 247, 238, 0.82);
+    --surface-solid: #FFF8F0;
+    --surface-2: rgba(255, 247, 238, 0.94);
+    --surface-hover: #FFF3E6;
+
+    
+    --text-primary: #3E2F22;
+    --text-secondary: #6B5545;
+    --text-muted: #9C8672;
+    --text-on-accent: #FFFFFF;
+
+    
+    --accent: #C97B3C;
+    --accent-2: #D9A441;
+    --accent-deep: #8A4F1F;
+    --accent-gradient: linear-gradient(120deg, #C97B3C 0%, #D9A441 100%);
+    --accent-glow: rgba(201, 123, 60, 0.22);
+    --accent-soft: rgba(201, 123, 60, 0.10);
+    --accent-border: rgba(201, 123, 60, 0.28);
+    --accent-border-strong: rgba(201, 123, 60, 0.55);
+
+    
+    --neon-blue: #22B0FF;
+    --neon-cyan: #1FE0E8;
+    --accent-neon-soft: rgba(34, 176, 255, 0.14);
+    --accent-neon-border: rgba(34, 176, 255, 0.28);
+    --accent-neon-border-strong: rgba(34, 176, 255, 0.5);
+
+    
+    --border: rgba(90, 65, 45, 0.10);
+    --border-strong: rgba(90, 65, 45, 0.16);
+    --shadow-sm: 0 2px 10px rgba(40, 24, 10, 0.06);
+    --shadow-md: 0 12px 32px rgba(40, 24, 10, 0.08);
+    --shadow-lg: 0 24px 64px rgba(40, 24, 10, 0.10);
+
+    
+    --nav-bg: rgba(255, 248, 238, 0.80);
+    --nav-border: rgba(90, 65, 45, 0.10);
+
+    
+    --page-glow-1: rgba(201, 123, 60, 0.12);
+    --page-glow-2: rgba(217, 164, 65, 0.08);
+    --page-glow-3: rgba(34, 176, 255, 0.06);
+
+    
+    --img-filter: none;
+    --hero-ring: rgba(34, 176, 255, 0.20);
+    --chip-bg: rgba(201, 123, 60, 0.08);
+    --chip-border: rgba(201, 123, 60, 0.14);
+    --badge-color: rgba(201, 123, 60, 0.12);
+    --badge-color-strong: rgba(201, 123, 60, 0.18);
+    --badge-text: var(--accent-deep);
+    --success: #2E9E5B;
+    --success-soft: rgba(46, 158, 91, 0.10);
+    --warning: #C98A1E;
+    --warning-soft: rgba(201, 138, 30, 0.10);
+    --danger: #C04A2E;
+    --danger-soft: rgba(192, 74, 46, 0.10);
+    --stone: #8A735F;
+    --stone-soft: rgba(138, 115, 95, 0.10);
+}
+
+html[data-theme="summer"] body {
+    background: linear-gradient(180deg, #FBF6F0 0%, #F3EAD9 45%, #EFE0CB 100%);
+    color: var(--text-primary);
+    
+    background-attachment: fixed;
+}
+
+html[data-theme="summer"] .glass-card { border-color: rgba(90, 65, 45, 0.14); }
+
+html[data-theme="summer"] a:hover, html[data-theme="summer"] .btn:hover {
+    background: rgba(201, 123, 60, 0.08);
+    border-color: rgba(201, 123, 60, 0.22);
+}
+
+html[data-theme="summer"] .price-display, html[data-theme="summer"] .current-price-row {
+    color: var(--accent-deep);
+}

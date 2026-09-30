@@ -1,0 +1,49 @@
+
+
+html[data-theme="dark"] {
+    --bg-primary: #02030A;
+    --bg-secondary: #050817;
+    --bg-tertiary: #080B18;
+    --surface: rgba(11, 16, 36, 0.62);
+    --surface-solid: #0B1024;
+    --surface-2: rgba(16, 22, 46, 0.9);
+    --surface-hover: rgba(20, 28, 58, 0.95);
+
+    --text-primary: #EAF0FF;
+    --text-secondary: #9DA9CC;
+    --text-muted: #64719A;
+
+    --accent: #3B82F6;
+    --accent-2: #22D3EE;
+    --accent-deep: #1D4ED8;
+    --accent-gradient: linear-gradient(120deg, #3B82F6 0%, #22D3EE 100%);
+    --accent-glow: rgba(59, 130, 246, 0.35);
+    --accent-soft: rgba(59, 130, 246, 0.12);
+    --accent-border: rgba(59, 130, 246, 0.28);
+    --accent-border-strong: rgba(59, 130, 246, 0.55);
+    --on-accent: #04060F;
+
+    --border: rgba(120, 150, 255, 0.12);
+    --border-strong: rgba(120, 150, 255, 0.22);
+    --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.35);
+    --shadow-md: 0 12px 34px rgba(0, 0, 1, 0.45);
+    --shadow-lg: 0 24px 70px rgba(0, 0, 1, 0.55);
+
+    --nav-bg: rgba(3, 5, 16, 0.72);
+    --nav-border: rgba(120, 150, 255, 0.10);
+
+    --page-glow-1: rgba(59, 130, 246, 0.16);
+    --page-glow-2: rgba(34, 211, 238, 0.10);
+    --page-glow-3: rgba(29, 78, 216, 0.12);
+
+    --img-filter: none;
+    --hero-ring: rgba(59, 130, 246, 0.35);
+    --chip-bg: rgba(59, 130, 246, 0.10);
+}
+
+html[data-theme="dark"] body {
+    background: linear-gradient(180deg, #050817 0%, #02030A 45%, #030514 100%);
+    color: var(--text-primary);
+}
+
+html[data-theme="dark"] .glass-card { border-color: rgba(120, 150, 255, 0.14); }

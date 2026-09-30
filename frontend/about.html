@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>درباره ما — NOVA STORE</title>
+    <meta name="description" content="NOVA STORE؛ فروشگاه پوشاک مردانه — کیفیت بالا، قیمت منصفانه، ارسال سریع و ۷ روز ضمانت بازگشت.">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/light-theme.css">
+    <link rel="stylesheet" href="/css/dark-theme.css">
+    <style>        .c-mark-img {
+            width: 88px; height: 88px;
+            border-radius: 22px;
+            object-fit: cover;
+            display: block;
+            margin: 0 auto 1rem;
+            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.35), 0 0 0 1px var(--border);
+        }
+        html[data-theme="summer"] .c-mark-img { box-shadow: 0 14px 30px rgba(62, 40, 18, 0.22), 0 0 0 1px var(--border); }
+        .about-section { margin-top: clamp(1.6rem, 4vw, 2.8rem); }
+        .pipeline {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.9rem;
+            counter-reset: step;
+        }
+        .pipe-step {
+            position: relative;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl, 18px);
+            padding: 1.2rem 1rem 1rem;
+            overflow: hidden;
+            transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+        }
+        .pipe-step::before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            top: 8px;
+            inset-inline-end: 12px;
+            font-size: 2.4rem;
+            font-weight: 900;
+            line-height: 1;
+            color: color-mix(in srgb, var(--accent) 22%, transparent);
+        }
+        .pipe-step:hover {
+            transform: translateY(-6px);
+            border-color: color-mix(in srgb, var(--accent) 42%, transparent);
+            box-shadow: 0 16px 36px rgba(2, 4, 16, 0.32);
+        }
+        .pipe-step b { display: block; margin-bottom: 0.35rem; font-size: 0.95rem; }
+        .pipe-step span { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.9; }
+        .pipe-step .p-ico { font-size: 1.5rem; display: block; margin-bottom: 0.5rem; }
+        @media (max-width: 480px) {
+            .about-hero { border-radius: 16px; }
+        }
+</style>
+</head>
+<body>
+    <div class="ambient-bg"></div>
+    <div class="boot-loader" aria-hidden="true">
+        <div class="boot-ring"><span class="boot-logo">🛒</span></div>
+        <div class="boot-title">NOVA <b>STORE</b></div>
+        <div class="boot-bar"></div>
+    </div>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="/" class="navbar-brand">
+                <span class="brand-mark">🛒</span>
+                <span class="brand-name">NOVA <b>STORE</b></span>
+            </a>
+            <div class="navbar-menu">
+                <a href="/" class="nav-link">خانه</a>
+                <a href="/products" class="nav-link">محصولات</a>
+                <a href="/about" class="nav-link active">درباره ما</a>
+                <a href="/cart" class="nav-link">سبد خرید</a>
+                <a href="/orders" class="nav-link">سفارش‌های من</a>
+                <a href="/login" class="nav-link" id="login-link">ورود</a>
+                <a href="/admin" class="nav-link" id="admin-link" style="display:none">پنل مدیریت</a>
+                <div class="nav-actions">
+                    <div style="position:relative">
+                        <button id="sound-toggle" class="icon-btn" aria-label="تنظیمات صدا" title="تنظیمات صدا">🔇</button>
+                        <span class="sound-pop" id="sound-pop">
+                            <div class="sound-row"><span>صدا</span>
+                                <label class="switch"><input type="checkbox" id="sound-switch"><span class="track"></span></label>
+                            </div>
+                            <input type="range" id="sound-volume" min="0" max="1" step="0.05" aria-label="بلندی صدا">
+                            <div class="sound-label">بلندی صدا</div>
+                        </span>
+                    </div>
+                    <button id="theme-toggle" class="icon-btn" aria-label="تغییر تم">☀️</button>
+                    <a href="/products?wishlist=1" class="icon-btn" aria-label="علاقه‌مندی‌ها" title="علاقه‌مندی‌ها">♥<span class="badge-count" id="wl-count" style="display:none">0</span></a>
+                    <a href="/cart" class="icon-btn" aria-label="سبد خرید">
+                        🛍<span class="badge-count" id="cart-count">0</span>
+                    </a>
+                    <button id="logout-btn" class="icon-btn" style="display:none" aria-label="خروج">⎋</button>
+                    <button id="hamburger" class="hamburger" aria-label="منو"><span></span><span></span><span></span></button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="menu-overlay" id="menu-overlay"></div>
+    <aside class="mobile-menu" id="mobile-menu" aria-label="منوی موبایل">
+        <div class="mobile-menu-head">
+            <span class="brand-name"><b>NOVA</b> STORE</span>
+            <button class="icon-btn" id="mm-close" aria-label="بستن منو">✕</button>
+        </div>
+        <nav>
+            <a href="/" class="mnav-link">🏠 صفحه اصلی</a>
+            <a href="/products" class="mnav-link">🛍️ محصولات</a>
+            <a href="/cart" class="mnav-link">🛒 سبد خرید</a>
+            <a href="/orders" class="mnav-link">📦 سفارش‌های من</a>
+            <a href="/about" class="mnav-link active">💠 درباره ما</a>
+            <a href="/login" class="mnav-link" id="mm-login">ورود / ثبت‌نام</a>
+            <a href="/admin" class="mnav-link" id="mm-admin" style="display:none">⚙️ پنل مدیریت</a>
+        </nav>
+        <div class="mobile-menu-foot">
+            <button class="btn btn-ghost btn-block" id="mm-logout" style="display:none">خروج از حساب</button>
+        </div>
+    </aside>
+    <main class="container">
+        <section class="about-hero reveal">                <span class="hero-eyebrow"><span class="dot"></span> درباره NOVA STORE</span>
+            <h1>خرید مطمئن، استایل واقعی<br><span class="gradient-text">کیفیتی که می‌بینید</span></h1>
+            <p>
+                NOVA STORE یک فروشگاه پوشاک مردانه است؛ کت، پیراهن و ست‌های کامل با کیفیت بالا،
+                قیمت منصفانه و ارسال سریع. هر محصول دقیق معرفی می‌شود تا با خیال راحت انتخاب کنید.
+            </p>
+            <div class="about-stats">
+                <div class="hero-stat"><b data-count="12" data-prefix="+">+۰</b><span>محصول منتخب</span></div>
+                <div class="hero-stat"><b data-count="98" data-suffix="٪">۰٪</b><span>رضایت مشتریان</span></div>
+                <div class="hero-stat"><b data-count="24" data-suffix="/۷">۰/۷</b><span>پشتیبانی</span></div>
+                <div class="hero-stat"><b data-count="7" data-suffix=" روز">۰ روز</b><span>ضمانت بازگشت</span></div>
+            </div>
+        </section>
+        <section class="about-section">
+            <div class="section-head reveal">
+                <div>
+                    <span class="eyebrow">Why us</span>
+                    <h2>چرا NOVA STORE؟</h2>
+                    <p class="section-desc">چهار اصلی که هر تصمیم طراحی و تجاری ما را شکل می‌دهند</p>
+                </div>
+            </div>
+            <div class="about-grid">
+                <article class="story-card reveal">
+                    <div class="s-icon">🧵</div>
+                    <h3>کیفیت ملموس</h3>
+                    <p>
+                        پارچه‌ها و دوخت هر لباس قبل از عرضه بررسی می‌شود؛ چیزی که می‌بینید همان است
+                        که به دستتان می‌رسد.
+                    </p>
+                </article>
+                <article class="story-card reveal">
+                    <div class="s-icon">🛡️</div>
+                    <h3>ضمانت اصالت و کیفیت</h3>
+                    <p>
+                        تمام محصولات با کنترل کیفیت تکی و ۷ روز ضمانت
+                        بازگشت بدون قید و شرط عرضه می‌شوند.
+                    </p>
+                </article>
+                <article class="story-card reveal">
+                    <div class="s-icon">🚚</div>
+                    <h3>ارسال سریع</h3>
+                    <p>
+                        سفارش‌ها در سریع‌ترین زمان بسته‌بندی و ارسال می‌شوند؛ پرداخت امن و ۷ روز
+                        ضمانت بازگشت بدون قید و شرط.
+                    </p>
+                </article>
+                <article class="story-card reveal">
+                    <div class="s-icon">💰</div>
+                    <h3>قیمت منصفانه</h3>
+                    <p>
+                        بدون واسطه و بدون هزینه اضافه؛ قیمت هر محصول همان چیزی است که می‌بینید و
+                        تخفیف‌های واقعی همیشه شفاف‌اند.
+                    </p>
+                </article>
+            </div>
+        </section>
+        <section class="creator-card reveal">
+            <img class="c-mark-img" src="/images/matin-logo.png" alt="لوگوی متین" width="88" height="88">
+            <h3>ساخته‌شده توسط متین علی‌نقیان</h3>
+            <p class="c-role">طراحی رابط کاربری، توسعه فرانت‌اند، بک‌اند و تجربه کاربری</p>
+        </section>
+        <div class="about-cta reveal">
+            <a href="/products" class="btn btn-primary">مشاهده محصولات ←</a>
+            <a href="/" class="btn btn-ghost">بازگشت به خانه</a>
+        </div>
+    </main>
+    <footer class="footer">
+        <div class="foot-brand">NOVA STORE</div>
+        <nav class="foot-links" aria-label="لینک‌های پاورقی">
+            <a href="/">خانه</a><a href="/products">محصولات</a><a href="/cart">سبد خرید</a><a href="/orders">سفارش‌های من</a><a href="/about">درباره ما</a><a href="/login">ورود / ثبت‌نام</a>
+        </nav>
+        <a class="foot-credit" href="/about">✦ Created by MatinAlinaghian</a>
+    </footer>
+    <script src="/js/theme.js"></script>
+    <script src="/js/sound.js"></script>
+    <script src="/js/toast.js"></script>
+    <script src="/js/motion.js"></script>
+    <script src="/js/api.js"></script>
+    <script>        try {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const wl = JSON.parse(localStorage.getItem('wishlist')) || [];
+            const cc = document.getElementById('cart-count');
+            const wc = document.getElementById('wl-count');
+            if (cc) cc.textContent = cart.reduce((s, i) => s + (i.quantity || 1), 0);
+            if (wc) { wc.textContent = wl.length; wc.style.display = wl.length ? 'grid' : 'none'; }
+        } catch (e) {}
+        document.addEventListener('DOMContentLoaded', () => {
+            const userId = localStorage.getItem('user_id');
+            const isAdmin = ['true', '1', 'yes'].includes((localStorage.getItem('is_admin') || '').toLowerCase());
+            if (userId) {
+                const ll = document.getElementById('login-link');
+                const ml = document.getElementById('mm-login');
+                if (ll) ll.style.display = 'none';
+                if (ml) ml.style.display = 'none';
+                const ob = document.getElementById('logout-btn');
+                if (ob) { ob.style.display = 'inline-block'; ob.onclick = async () => { try { await api.logout(); } catch (e) {} clearUserData(); window.location.href = '/'; }; }
+                if (isAdmin) {
+                    const al = document.getElementById('admin-link');
+                    const ma = document.getElementById('mm-admin');
+                    if (al) al.style.display = 'inline-block';
+                    if (ma) ma.style.display = 'flex';
+                }
+                const mo = document.getElementById('mm-logout');
+                if (mo) { mo.style.display = 'block'; mo.onclick = async () => { try { await api.logout(); } catch (e) {} clearUserData(); window.location.href = '/'; }; }
+            }
+            const burger = document.getElementById('hamburger');
+            const menu = document.getElementById('mobile-menu');
+            const overlay = document.getElementById('menu-overlay');
+            const close = () => { menu.classList.remove('open'); overlay.classList.remove('show'); };
+            if (burger) burger.addEventListener('click', () => { menu.classList.add('open'); overlay.classList.add('show'); });
+            if (overlay) overlay.addEventListener('click', close);
+            const mmClose = document.getElementById('mm-close');
+            if (mmClose) mmClose.addEventListener('click', close);
+            const counters = document.querySelectorAll('[data-count]');
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach(en => {
+                    if (!en.isIntersecting) return;
+                    const el = en.target;
+                    io.unobserve(el);
+                    const target = parseInt(el.dataset.count) || 0;
+                    const prefix = el.dataset.prefix || '';
+                    const suffix = el.dataset.suffix || '';
+                    const dur = 1100;
+                    const t0 = performance.now();
+                    const tick = (t) => {
+                        const p = Math.min(1, (t - t0) / dur);
+                        const eased = 1 - Math.pow(1 - p, 3);
+                        el.textContent = prefix + Math.round(target * eased).toLocaleString('fa-IR') + suffix;
+                        if (p < 1) requestAnimationFrame(tick);
+                    };
+                    requestAnimationFrame(tick);
+                });
+            }, { threshold: 0.4 });
+            counters.forEach(c => io.observe(c));
+        });
+</script>
+</body>
+</html>

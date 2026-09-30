@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOVA STORE — بوتیک پوشاک مردانه</title>
+    <meta name="description" content="NOVA STORE — خرید آنلاین پوشاک مردانه؛ کت، پیراهن، اورشرت و ست‌های کامل با نمایش تعاملی و طراحی مدرن">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/light-theme.css">
+    <link rel="stylesheet" href="/css/dark-theme.css">
+    <style>        .hero {
+            position: relative;
+            margin-top: clamp(1rem, 3vw, 2.5rem);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            background:
+                radial-gradient(80% 100% at 80% 10%, var(--page-glow-1), transparent 60%),
+                radial-gradient(60% 90% at 15% 90%, var(--page-glow-2), transparent 55%),
+                var(--surface);
+            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
+            min-height: min(600px, calc(100vh - 160px));
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            align-items: center;
+            gap: 1rem;
+            padding: clamp(1.5rem, 4vw, 4rem);
+        }
+        .hero-copy { position: relative; z-index: 2; }
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 1rem;
+            border-radius: 99px;
+            border: 1px solid var(--accent-border);
+            background: var(--accent-soft);
+            color: var(--accent-2);
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 1.2rem;
+            animation: fadeUp 0.8s var(--ease-out) both;
+        }
+        .hero-eyebrow .dot {
+            width: 7px; height: 7px; border-radius: 50%;
+            background: var(--accent-2);
+            box-shadow: 0 0 10px var(--accent-2);
+            animation: pulseGlow 2s ease-in-out infinite;
+        }
+        .hero-copy h1 {
+            font-size: clamp(2rem, 5.2vw, 3.6rem);
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 1rem;
+            animation: fadeUp 0.8s 0.1s var(--ease-out) both;
+        }
+        .hero-copy .hero-sub {
+            color: var(--text-secondary);
+            font-size: clamp(0.95rem, 1.6vw, 1.15rem);
+            max-width: 46ch;
+            margin-bottom: 2rem;
+            animation: fadeUp 0.8s 0.2s var(--ease-out) both;
+        }
+        .hero-ctas {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            animation: fadeUp 0.8s 0.3s var(--ease-out) both;
+        }
+        .hero-ctas .btn { padding: 0.95rem 2rem; font-size: 1rem; border-radius: 14px; }
+        .hero-stats {
+            display: flex;
+            gap: clamp(1.2rem, 3vw, 2.6rem);
+            margin-top: 2.6rem;
+            animation: fadeUp 0.8s 0.45s var(--ease-out) both;
+        }
+        .hero-stat b {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-stat span { font-size: 0.78rem; color: var(--text-muted); font-weight: 600; }
+        .hero-visual {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 340px;
+        }
+        .hero-glow {
+            position: absolute;
+            width: 70%;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--page-glow-1) 0%, transparent 65%);
+            filter: blur(30px);
+            animation: pulseGlow 4s ease-in-out infinite;
+        }
+        .hero-orbit {
+            position: absolute;
+            width: 82%;
+            aspect-ratio: 1;
+            border: 1px solid var(--hero-ring);
+            border-radius: 50%;
+            animation: spin 26s linear infinite;
+        }
+        .hero-orbit::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            right: 48%;
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            background: var(--accent-2);
+            box-shadow: 0 0 14px var(--accent-2), 0 0 30px var(--accent-glow);
+        }
+        .hero-orbit.orbit-2 {
+            width: 64%;
+            animation: spin 18s linear infinite reverse;
+            border-color: transparent;
+            border-top-color: var(--accent-border-strong);
+            border-left-color: var(--accent-border-strong);
+        }
+        .hero-product {
+            position: relative;
+            z-index: 2;
+            width: min(58%, 360px);
+            animation: floatY 6s ease-in-out infinite;
+        }
+        .hero-product img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-radius: 26px;
+            filter: drop-shadow(0 40px 50px rgba(0, 0, 0, 0.55)) drop-shadow(0 0 46px var(--accent-glow));
+            transition: transform 0.6s var(--ease-out);
+        }
+        .hero-visual:hover .hero-product img { transform: scale(1.04) rotate(1.5deg); }
+        .hero-price-tag {
+            position: absolute;
+            z-index: 3;
+            bottom: 12%;
+            right: 6%;
+            padding: 0.6rem 1.1rem;
+            border-radius: 16px;
+            background: var(--surface-solid);
+            border: 1px solid var(--accent-border);
+            box-shadow: var(--shadow-md), var(--glow-sm);
+            font-size: 0.8rem;
+            font-weight: 800;
+            animation: floatY 5s 1s ease-in-out infinite;
+        }
+        .hero-chip {
+            position: absolute;
+            z-index: 3;
+            top: 14%;
+            left: 4%;
+            padding: 0.5rem 0.9rem;
+            border-radius: 14px;
+            background: var(--surface-solid);
+            border: 1px solid var(--border-strong);
+            box-shadow: var(--shadow-md);
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            animation: floatY 7s 0.5s ease-in-out infinite;
+        }
+        .features-strip {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-top: 2.5rem;
+        }
+        .feature-card {
+            padding: 1.4rem 1.2rem;
+            text-align: center;
+            border-radius: var(--radius-lg);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            -webkit-backdrop-filter: blur(14px);
+            backdrop-filter: blur(14px);
+            transition: transform var(--dur) var(--ease-out), border-color var(--dur), box-shadow var(--dur);
+        }
+        .feature-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--accent-border);
+            box-shadow: var(--glow-sm);
+        }
+        .feature-card .f-icon { font-size: 1.7rem; margin-bottom: 0.5rem; }
+        .feature-card b { display: block; font-size: 0.92rem; margin-bottom: 0.2rem; }
+        .feature-card span { font-size: 0.76rem; color: var(--text-muted); }
+        .featured-carousel { position: relative; overflow: hidden; padding: 0.5rem; }
+        .featured-track {
+            display: flex;
+            direction: rtl;
+            gap: 2.5rem;
+            margin-top: 1.5rem;
+            transition: transform 0.7s var(--ease-out);
+        }
+        .featured-track .product-card { flex: 0 0 calc((100% - 5rem) / 3); }
+        .carousel-control {
+            position: absolute;
+            top: 42%;
+            transform: translateY(-50%);
+            z-index: 5;
+            width: 44px; height: 44px;
+            border: 1px solid var(--border-strong);
+            border-radius: 50%;
+            background: var(--surface-solid);
+            color: var(--accent-2);
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: grid;
+            place-items: center;
+            transition: all var(--dur-fast) ease;
+            box-shadow: var(--shadow-md);
+        }
+        .carousel-control:hover {
+            border-color: var(--accent-border-strong);
+            box-shadow: var(--glow-sm);
+            transform: translateY(-50%) scale(1.08);
+        }
+        .carousel-prev { right: 0; }
+        .carousel-next { left: 0; }
+        @media (max-width: 980px) {
+            .hero { grid-template-columns: 1fr; text-align: center; min-height: 0; }
+            .hero-copy .hero-sub { margin-inline: auto; }
+            .hero-ctas { justify-content: center; }
+            .hero-stats { justify-content: center; }
+            .hero-visual { min-height: 300px; order: -1; }
+            .features-strip { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .featured-track { gap: 1rem; }
+            .featured-track .product-card { flex-basis: 100%; }
+            .hero-product { width: 64%; }
+        }
+        @media (max-width: 480px) {
+            .features-strip { grid-template-columns: repeat(2, 1fr); gap: 0.65rem; }
+            .feature-card { padding: 1rem 0.7rem; }
+            .feature-card .f-icon { font-size: 1.3rem; }
+            .hero-price-tag { right: 2%; bottom: 6%; font-size: 0.7rem; }
+            .hero-chip { left: 2%; font-size: 0.65rem; }
+            .hero-stats { gap: 1.2rem; }
+            .hero-stat b { font-size: 1.15rem; }
+        }
+</style>
+</head>
+<body>
+    <div class="ambient-bg"></div>
+
+    
+    <div class="boot-loader" aria-hidden="true">
+        <div class="boot-ring"><span class="boot-logo">🛒</span></div>
+        <div class="boot-title">NOVA <b>STORE</b></div>
+        <div class="boot-bar"></div>
+    </div>
+
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="/" class="navbar-brand">
+                <span class="brand-mark">🛒</span>
+                <span class="brand-name">NOVA <b>STORE</b></span>
+            </a>
+            <div class="navbar-menu">
+                <a href="/" class="nav-link active">خانه</a>
+                <a href="/products" class="nav-link">محصولات</a>
+                <a href="/about" class="nav-link">درباره ما</a>
+                <a href="/cart" class="nav-link" id="cart-link">سبد خرید</a>
+                <a href="/orders" class="nav-link">سفارش‌های من</a>
+                <a href="/login" class="nav-link" id="login-link">ورود</a>
+                <a href="/admin" class="nav-link" id="admin-link" style="display: none;">پنل مدیریت</a>
+                <div class="nav-actions">
+                    <div style="position:relative">
+                        <button id="sound-toggle" class="icon-btn" aria-label="تنظیمات صدا" title="تنظیمات صدا">🔇</button>
+                        <span class="sound-pop" id="sound-pop">
+                            <div class="sound-row"><span>صدا</span>
+                                <label class="switch"><input type="checkbox" id="sound-switch"><span class="track"></span></label>
+                            </div>
+                            <input type="range" id="sound-volume" min="0" max="1" step="0.05" aria-label="بلندی صدا">
+                            <div class="sound-label">بلندی صدا</div>
+                        </span>
+                    </div>
+                    <button id="theme-toggle" class="icon-btn" aria-label="تغییر تم">☀️</button>
+                    <a href="/products?wishlist=1" class="icon-btn" aria-label="علاقه‌مندی‌ها" title="علاقه‌مندی‌ها">♥<span class="badge-count" id="wl-count" style="display:none">0</span></a>
+                    <a href="#" id="cart-icon-btn" class="icon-btn" aria-label="سبد خرید" onclick="return false;">
+                        🛍<span class="badge-count" id="cart-count">0</span>
+                    </a>
+                    <button id="logout-btn" class="icon-btn" style="display:none" aria-label="خروج">⎋</button>
+                    <button id="hamburger" class="hamburger" aria-label="منو"><span></span><span></span><span></span></button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <section class="hero" id="hero">
+            <canvas id="hero-particles"></canvas>
+            <div class="hero-copy">
+                <span class="hero-eyebrow"><span class="dot"></span> استایل مینیمال، امروز</span>
+                <h1>استایل تو، انتخاب مطمئن<br><span class="gradient-text">کیفیت واقعی</span></h1>
+                <p class="hero-sub">کت، پیراهن و ست‌های کامل مردانه؛ کیفیت بالا، قیمت منصفانه، ارسال سریع و ۷ روز ضمانت بازگشت — همین حالا انتخاب کنید.</p>
+                <div class="hero-ctas">
+                    <a href="/products" class="btn btn-primary">مشاهده محصولات ←</a>
+                    <a href="#featured" class="btn btn-ghost">محصولات برتر</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat"><b>+۱۲</b><span>مدل منتخب</span></div>
+                    <div class="hero-stat"><b>۹۸٪</b><span>رضایت مشتریان</span></div>
+                    <div class="hero-stat"><b>۷روز</b><span>ضمانت بازگشت</span></div>
+                </div>
+            </div>
+            <div class="hero-visual" data-parallax="18">
+                <div class="hero-glow" data-parallax="8"></div>
+                <div class="hero-orbit"></div>
+                <div class="hero-orbit orbit-2"></div>
+                <div class="hero-product">
+                    <img src="/images/photo_1_2026-09-03_23-04-59.jpg" alt="کت تک‌زیپ مشکی NOVA STORE" loading="eager">
+                </div>
+                <div class="hero-price-tag">⚡ ارسال رایگان بالای ۲ میلیون</div>
+                <div class="hero-chip">✦ گارانتی اصالت کالا</div>
+            </div>
+        </section>
+
+        
+        <section class="features-strip reveal">
+            <div class="feature-card"><div class="f-icon">🚀</div><b>ارسال سریع</b><span>تحویل اکسپرس در سراسر کشور</span></div>
+            <div class="feature-card"><div class="f-icon">🛡️</div><b>ضمانت اصالت</b><span>تمام محصولات اورجینال</span></div>
+            <div class="feature-card"><div class="f-icon">↩️</div><b>بازگشت آسان</b><span>۷ روز ضمانت بازگشت</span></div>
+            <div class="feature-card"><div class="f-icon">💎</div><b>تجربه پریمیوم</b><span>نمایش سه‌بعدی محصولات</span></div>
+        </section>
+
+        
+        <section class="featured-products mt-4" id="featured">
+            <div class="section-head reveal">
+                <div>
+                    <span class="eyebrow">Featured</span>
+                    <h2>محصولات برتر</h2>
+                    <p class="section-desc">انتخاب‌های ویژه NOVA STORE با بیشترین محبوبیت</p>
+                </div>
+            </div>
+            <div class="featured-carousel reveal">
+                <button class="carousel-control carousel-prev" id="featured-prev" aria-label="محصول قبلی" title="محصول قبلی">›</button>
+                <div id="featured-list" class="featured-track"></div>
+                <button class="carousel-control carousel-next" id="featured-next" aria-label="محصول بعدی" title="محصول بعدی">‹</button>
+            </div>
+        </section>
+    
+    <section class="newsletter reveal" id="newsletter">
+        <div>
+            <h3>خبرنامه NOVA STORE</h3>
+            <p>تخفیف‌ها، محصولات جدید و نکات خرید — بدون اسپم، فقط مطالب مفید.</p>
+        </div>
+        <form id="newsletter-form">
+            <input type="email" id="newsletter-email" placeholder="ایمیل خود را وارد کنید…" aria-label="ایمیل" required>
+            <button class="btn btn-primary" type="submit">عضویت</button>
+        </form>
+    </section>
+    </main>
+
+    <footer class="footer">
+        <div class="foot-brand">NOVA STORE</div>
+        <nav class="foot-links" aria-label="لینک‌های پاورقی">            <a href="/">خانه</a><a href="/products">محصولات</a><a href="/cart">سبد خرید</a><a href="/orders">سفارش‌های من</a><a href="/about">درباره ما</a><a href="/login">ورود / ثبت‌نام</a>
+        </nav>
+        <a class="foot-credit" href="/about">✦ Created by MatinAlinaghian</a>
+    </footer>
+
+    <script src="/js/theme.js"></script>
+    <script src="/js/sound.js"></script>
+    <script src="/js/toast.js"></script>
+    <script src="/js/motion.js"></script>
+    <script src="/js/product3d.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/app.js"></script>
+    <script>        document.getElementById('newsletter-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('newsletter-email').value.trim();
+            if (!email) return;
+            e.target.reset();
+            if (window.soundManager) window.soundManager.play('success');
+            Toast.show('عضویت شما در خبرنامه ثبت شد 🎉', 'success', 2800);
+        });
+</script>
+</body>
+</html>

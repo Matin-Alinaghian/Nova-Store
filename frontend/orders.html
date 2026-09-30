@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سفارش‌های من — NOVA STORE</title>
+    <meta name="description" content="تاریخچه سفارش‌های شما در NOVA STORE — مشاهده وضعیت، اقلام و مبلغ هر سفارش.">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/light-theme.css">
+    <link rel="stylesheet" href="/css/dark-theme.css">
+    <style>        .orders-head { margin-top: clamp(1.6rem, 4vw, 2.8rem); }
+        .orders-list { display: grid; gap: 1rem; margin-top: 1.6rem; }
+        @keyframes orderIn {
+            from { transform: translateY(16px); }
+            to   { transform: translateY(0); }
+        }
+        .order-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl, 20px);
+            padding: 1.3rem 1.4rem;
+            opacity: 1;
+            animation: orderIn 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .order-card { animation: none; }
+        }
+        .oi-none {
+            padding: 0.9rem 0.6rem;
+            border-radius: 12px;
+            background: var(--bg-tertiary);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-align: center;
+        }
+        .order-card:hover {
+            transform: translateY(-3px);
+            border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+            box-shadow: 0 14px 34px rgba(2, 4, 16, 0.28);
+        }
+        .order-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.9rem;
+        }
+        .order-id { font-weight: 800; font-size: 1.02rem; }
+        .order-id span { color: var(--text-muted); font-weight: 500; font-size: 0.82rem; margin-inline-start: 0.6rem; }
+        .order-status {
+            padding: 0.32rem 0.95rem;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            border: 1px solid transparent;
+        }
+        .st-pending   { background: rgba(234, 179, 8, .14);  color: #eab308; border-color: rgba(234, 179, 8, .35); }
+        .st-processing{ background: rgba(59, 130, 246, .14); color: #60a5fa; border-color: rgba(59, 130, 246, .35); }
+        .st-shipped   { background: rgba(168, 85, 247, .14); color: #c084fc; border-color: rgba(168, 85, 247, .35); }
+        .st-delivered { background: rgba(34, 197, 94, .14);  color: #4ade80; border-color: rgba(34, 197, 94, .35); }
+        .st-cancelled { background: rgba(239, 68, 68, .14);  color: #f87171; border-color: rgba(239, 68, 68, .35); }
+        .st-other     { background: var(--bg-tertiary); color: var(--text-secondary); border-color: var(--border); }
+        .order-items { display: grid; gap: 0.55rem; }
+        .oi-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 0.6rem;
+            border-radius: 12px;
+            background: var(--bg-tertiary);
+        }
+        .oi-img {
+            width: 52px; height: 52px;
+            border-radius: 12px;
+            object-fit: cover;
+            flex: none;
+            background: var(--surface);
+            box-shadow: 0 0 0 1px var(--border);
+        }
+        .oi-thumb { width: 52px; height: 52px; flex: none; display: grid; place-items: center; font-size: 1.5rem; }
+        .oi-info { flex: 1; min-width: 0; }
+        .oi-name { font-weight: 700; font-size: 0.92rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .oi-meta { font-size: 0.78rem; color: var(--text-secondary); margin-top: 0.15rem; }
+        .oi-sum { font-weight: 700; font-size: 0.88rem; white-space: nowrap; }
+        .order-foot {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+            padding-top: 0.9rem;
+            border-top: 1px dashed var(--border);
+        }
+        .order-date { font-size: 0.8rem; color: var(--text-muted); }
+        .order-total { font-weight: 800; }
+        .order-total small { color: var(--text-secondary); font-weight: 500; margin-inline-start: 0.3rem; }
+        .orders-empty {
+            text-align: center;
+            padding: 3.5rem 1rem;
+            border: 1px dashed var(--border);
+            border-radius: var(--radius-xl, 20px);
+            margin-top: 1.6rem;
+        }
+        .orders-empty .big { font-size: 2.6rem; margin-bottom: 0.7rem; }
+        .orders-empty p { color: var(--text-secondary); margin-bottom: 1.3rem; }
+        .status-hint { font-size: 0.78rem; color: var(--text-muted); margin-top: 1.1rem; text-align: center; }
+        @media (max-width: 520px) {
+            .oi-img, .oi-thumb { width: 44px; height: 44px; }
+            .order-card { padding: 1rem; }
+        }
+</style>
+</head>
+<body>
+    <div class="ambient-bg"></div>
+    <div class="boot-loader" aria-hidden="true">
+        <div class="boot-ring"><span class="boot-logo">🛒</span></div>
+        <div class="boot-title">NOVA <b>STORE</b></div>
+        <div class="boot-bar"></div>
+    </div>
+
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="/" class="navbar-brand">
+                <span class="brand-mark">🛒</span>
+                <span class="brand-name">NOVA <b>STORE</b></span>
+            </a>
+            <div class="navbar-menu">
+                <a href="/" class="nav-link">خانه</a>
+                <a href="/products" class="nav-link">محصولات</a>
+                <a href="/about" class="nav-link">درباره ما</a>
+                <a href="/cart" class="nav-link">سبد خرید</a>
+                <a href="/orders" class="nav-link active">سفارش‌های من</a>
+                <a href="/login" class="nav-link" id="login-link">ورود</a>
+                <a href="/admin" class="nav-link" id="admin-link" style="display:none">پنل مدیریت</a>
+                <div class="nav-actions">
+                    <div style="position:relative">
+                        <button id="sound-toggle" class="icon-btn" aria-label="تنظیمات صدا" title="تنظیمات صدا">🔇</button>
+                        <span class="sound-pop" id="sound-pop">
+                            <div class="sound-row"><span>صدا</span>
+                                <label class="switch"><input type="checkbox" id="sound-switch"><span class="track"></span></label>
+                            </div>
+                            <input type="range" id="sound-volume" min="0" max="1" step="0.05" aria-label="بلندی صدا">
+                            <div class="sound-label">بلندی صدا</div>
+                        </span>
+                    </div>
+                    <button id="theme-toggle" class="icon-btn" aria-label="تغییر تم">☀️</button>
+                    <a href="/products?wishlist=1" class="icon-btn" aria-label="علاقه‌مندی‌ها" title="علاقه‌مندی‌ها">♥<span class="badge-count" id="wl-count" style="display:none">0</span></a>
+                    <a href="/cart" class="icon-btn" aria-label="سبد خرید">
+                        🛍<span class="badge-count" id="cart-count">0</span>
+                    </a>
+                    <button id="logout-btn" class="icon-btn" style="display:none" aria-label="خروج">⎋</button>
+                    <button id="hamburger" class="hamburger" aria-label="منو"><span></span><span></span><span></span></button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="menu-overlay" id="menu-overlay"></div>
+    <aside class="mobile-menu" id="mobile-menu" aria-label="منوی موبایل">
+        <div class="mobile-menu-head">
+            <span class="brand-name"><b>NOVA</b> STORE</span>
+            <button class="icon-btn" id="mm-close" aria-label="بستن منو">✕</button>
+        </div>
+        <nav>
+            <a href="/" class="mnav-link">🏠 صفحه اصلی</a>
+            <a href="/products" class="mnav-link">🛍️ محصولات</a>
+            <a href="/cart" class="mnav-link">🛒 سبد خرید</a>
+            <a href="/orders" class="mnav-link active">📦 سفارش‌های من</a>
+            <a href="/about" class="mnav-link">💠 درباره ما</a>
+            <a href="/login" class="mnav-link" id="mm-login">ورود / ثبت‌نام</a>
+            <a href="/admin" class="mnav-link" id="mm-admin" style="display:none">⚙️ پنل مدیریت</a>
+        </nav>
+        <div class="mobile-menu-foot">
+            <button class="btn btn-ghost btn-block" id="mm-logout" style="display:none">خروج از حساب</button>
+        </div>
+    </aside>
+
+    <main class="container">
+        <section class="orders-head">
+            <span class="eyebrow">Orders</span>
+            <h1>سفارش‌های <span class="gradient-text">من</span></h1>
+            <p class="section-desc">تاریخچه کامل خریدهای شما — وضعیت، اقلام و مبلغ هر سفارش.</p>
+        </section>
+
+        <div id="orders-loading" class="loading-block"><span>در حال بارگذاری سفارش‌ها...</span></div>
+
+        <div id="orders-empty" class="orders-empty" style="display:none">
+            <div class="big">📦</div>
+            <h2>هنوز سفارشی ثبت نکرده‌اید</h2>
+            <p>اولین خرید خود را از کالکشن محصولات ما شروع کنید.</p>
+            <a href="/products" class="btn btn-primary">مشاهده محصولات ←</a>
+        </div>
+
+        <div id="orders-list" class="orders-list"></div>
+
+        <p class="status-hint">وضعیت‌ها: در انتظار بررسی → در حال پردازش → ارسال شده → تحویل داده شده</p>
+    </main>
+
+    <footer class="footer">
+        <div class="foot-brand">NOVA STORE</div>
+        <nav class="foot-links" aria-label="لینک‌های پاورقی">
+            <a href="/">خانه</a><a href="/products">محصولات</a><a href="/cart">سبد خرید</a><a href="/orders">سفارش‌های من</a><a href="/about">درباره ما</a>
+        </nav>
+        <a class="foot-credit" href="/about">✦ Created by MatinAlinaghian</a>
+    </footer>
+
+    <script src="/js/theme.js"></script>
+    <script src="/js/sound.js"></script>
+    <script src="/js/toast.js"></script>
+    <script src="/js/motion.js"></script>
+    <script src="/js/api.js"></script>
+    <script>        const STATUS_FA = {
+            pending: 'در انتظار بررسی',
+            processing: 'در حال پردازش',
+            shipped: 'ارسال شده',
+            delivered: 'تحویل داده شده',
+            cancelled: 'لغو شده'
+        };
+        function statusClass(s) {
+            return ['pending', 'processing', 'shipped', 'delivered', 'cancelled'].includes(s) ? 'st-' + s : 'st-other';
+        }
+        function faDate(dt) {
+            if (!dt) return '';
+            try {
+                return new Date(dt.replace(' ', 'T')).toLocaleDateString('fa-IR', {
+                    year: 'numeric', month: 'long', day: 'numeric'
+                }) + ' — ' + dt.split(' ')[1];
+            } catch (e) { return dt; }
+        }
+        function itemRow(it) {
+            const sum = (it.price * it.quantity).toLocaleString('fa-IR');
+            const img = it.image_url
+                ? `<img class="oi-img" src="${it.image_url}" alt="" loading="lazy" onerror="this.outerHTML='<div class=oi-thumb>📦</div>'">`
+                : '<div class="oi-thumb">📦</div>';
+            return `
+                <div class="oi-row">
+                    ${img}
+                    <div class="oi-info">
+                        <div class="oi-name">${it.name || 'محصول حذف‌شده'}</div>
+                        <div class="oi-meta">${it.quantity.toLocaleString('fa-IR')} × ${it.price.toLocaleString('fa-IR')} تومان</div>
+                    </div>
+                    <div class="oi-sum">${sum} تومان</div>
+                </div>`;
+        }
+        function orderCard(o) {
+            const status = STATUS_FA[o.status] || o.status;
+            const items = o.items || [];
+            const itemsHtml = items.length
+                ? items.map(itemRow).join('')
+                : '<div class="oi-none">اقلام این سفارش در سیستم ثبت نشده است</div>';
+            return `
+                <article class="order-card">
+                    <div class="order-top">
+                        <div class="order-id">سفارش #${o.id}<span>${items.length.toLocaleString('fa-IR')} قلم کالا</span></div>
+                        <span class="order-status ${statusClass(o.status)}">${status}</span>
+                    </div>
+                    <div class="order-items">${itemsHtml}</div>
+                    <div class="order-foot">
+                        <span class="order-date">🕒 ${faDate(o.created_at)}</span>
+                        <div class="order-total">جمع کل: ${(o.total_price || 0).toLocaleString('fa-IR')}<small>تومان</small></div>
+                    </div>
+                </article>`;
+        }
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const wl = JSON.parse(localStorage.getItem('wishlist')) || [];
+                const cc = document.getElementById('cart-count');
+                const wc = document.getElementById('wl-count');
+                if (cc) cc.textContent = cart.reduce((s, i) => s + (i.quantity || 1), 0);
+                if (wc) { wc.textContent = wl.length; wc.style.display = wl.length ? 'grid' : 'none'; }
+            } catch (e) {}
+            const userId = localStorage.getItem('user_id');
+            const isAdmin = ['true', '1', 'yes'].includes((localStorage.getItem('is_admin') || '').toLowerCase());
+            if (userId) {
+                const ll = document.getElementById('login-link');
+                const ml = document.getElementById('mm-login');
+                if (ll) ll.style.display = 'none';
+                if (ml) ml.style.display = 'none';
+                const ob = document.getElementById('logout-btn');
+                if (ob) { ob.style.display = 'inline-block'; ob.onclick = async () => { try { await api.logout(); } catch (e) {} clearUserData(); window.location.href = '/'; }; }
+                if (isAdmin) {
+                    const al = document.getElementById('admin-link');
+                    const ma = document.getElementById('mm-admin');
+                    if (al) al.style.display = 'inline-block';
+                    if (ma) ma.style.display = 'flex';
+                }
+                const mo = document.getElementById('mm-logout');
+                if (mo) { mo.style.display = 'block'; mo.onclick = async () => { try { await api.logout(); } catch (e) {} clearUserData(); window.location.href = '/'; }; }
+            }
+            const burger = document.getElementById('hamburger');
+            const menu = document.getElementById('mobile-menu');
+            const overlay = document.getElementById('menu-overlay');
+            const close = () => { menu.classList.remove('open'); overlay.classList.remove('show'); };
+            if (burger) burger.addEventListener('click', () => { menu.classList.add('open'); overlay.classList.add('show'); });
+            if (overlay) overlay.addEventListener('click', close);
+            const mmClose = document.getElementById('mm-close');
+            if (mmClose) mmClose.addEventListener('click', close);
+            if (!userId) {
+                window.location.href = '/login';
+                return;
+            }
+            const listEl = document.getElementById('orders-list');
+            const loadingEl = document.getElementById('orders-loading');
+            const emptyEl = document.getElementById('orders-empty');
+            try {
+                const orders = await api.getMyOrders();
+                loadingEl.style.display = 'none';
+                if (!orders.length) {
+                    emptyEl.style.display = 'block';
+                } else {
+                    listEl.innerHTML = orders.map(orderCard).join('');
+                    if (window.Motion && typeof Motion.rescan === 'function') Motion.rescan();
+                }
+            } catch (err) {
+                loadingEl.style.display = 'none';
+                Toast.show('خطا در دریافت سفارش‌ها: ' + err.message, 'error');
+                listEl.innerHTML = '<div class="orders-empty"><div class="big">⚠️</div><p>دریافت سفارش‌ها ناموفق بود؛ صفحه را دوباره بارگذاری کنید.</p></div>';
+            }
+        });
+</script>
+</body>
+</html>

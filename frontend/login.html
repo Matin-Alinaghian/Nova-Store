@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ورود | NOVA STORE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/light-theme.css">
+    <link rel="stylesheet" href="/css/dark-theme.css">
+    <style>        body {
+            display: flex;
+            flex-direction: column;
+        }
+        .auth-wrap {
+            flex: 1;
+            display: grid;
+            place-items: center;
+            padding: clamp(1rem, 4vw, 3rem);
+            position: relative;
+            overflow: hidden;
+        }
+        .auth-orbs { position: absolute; inset: 0; pointer-events: none; }
+        .auth-orbs .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(70px);
+            opacity: 0.55;
+            animation: floatShape 18s ease-in-out infinite;
+        }
+        .auth-orbs .orb:nth-child(1) { width: 380px; height: 380px; background: var(--page-glow-1); top: -8%; right: -6%; }
+        .auth-orbs .orb:nth-child(2) { width: 300px; height: 300px; background: var(--page-glow-2); bottom: -6%; left: -4%; animation-delay: -6s; }
+        .auth-orbs .orb:nth-child(3) { width: 220px; height: 220px; background: var(--page-glow-3); top: 45%; left: 40%; animation-delay: -12s; }
+        @keyframes floatShape {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(40px, -40px) scale(1.08); }
+            50% { transform: translate(-30px, 30px) scale(0.94); }
+            75% { transform: translate(-40px, -25px) scale(1.04); }
+        }
+        .login-container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 440px;
+            background: var(--surface);
+            -webkit-backdrop-filter: blur(26px) saturate(1.4);
+            backdrop-filter: blur(26px) saturate(1.4);
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius-xl);
+            padding: clamp(1.6rem, 4vw, 2.6rem);
+            box-shadow: var(--shadow-lg), var(--glow-md);
+            animation: cardIn 0.7s var(--ease-out) both;
+        }
+        @keyframes cardIn {
+            from { opacity: 0; transform: translateY(36px) scale(0.97); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .login-header { text-align: center; margin-bottom: 1.8rem; }
+        .login-header .logo-badge {
+            width: 64px; height: 64px;
+            margin: 0 auto 1rem;
+            display: grid; place-items: center;
+            font-size: 1.7rem;
+            border-radius: 20px;
+            background: var(--accent-gradient);
+            box-shadow: var(--glow-md);
+            animation: floatY 5s ease-in-out infinite;
+        }
+        .login-header h2 { font-size: 1.55rem; font-weight: 800; }
+        .login-header p { color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.3rem; }
+        .tabs {
+            display: flex;
+            gap: 0.4rem;
+            margin-bottom: 1.8rem;
+            background: var(--bg-tertiary);
+            padding: 0.35rem;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 0.75rem;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-weight: 700;
+            font-family: inherit;
+            font-size: 0.92rem;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: all 0.3s var(--ease-out);
+        }
+        .tab-btn.active {
+            background: var(--accent-gradient);
+            color: var(--on-accent);
+            box-shadow: var(--glow-sm);
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.35s ease; }
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--accent-gradient);
+            color: var(--on-accent);
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 800;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-out);
+            margin-top: 0.5rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 18px rgba(37, 99, 235, 0.35);
+        }
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; bottom: 0;
+            width: 40%;
+            left: -60%;
+            background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+            transform: skewX(-20deg);
+            transition: left 0.6s ease;
+        }
+        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(37, 99, 235, 0.45), var(--glow-sm); }
+        .submit-btn:hover::before { left: 130%; }
+        .submit-btn:active { transform: scale(0.98); }
+        .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+        .switch-tab {
+            text-align: center;
+            margin-top: 1.4rem;
+            color: var(--text-muted);
+            font-size: 0.86rem;
+        }
+        .switch-tab a {
+            color: var(--accent-2);
+            text-decoration: none;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .switch-tab a:hover { text-decoration: underline; }
+        .loading { display: none; text-align: center; padding: 0.6rem 0; color: var(--accent-2); font-size: 0.85rem; }
+        .loading .spinner { width: 24px; height: 24px; border-width: 2.5px; margin: 0 auto 0.4rem; }
+        .trust-row {
+            display: flex;
+            justify-content: center;
+            gap: 1.2rem;
+            margin-top: 1.4rem;
+            padding-top: 1.2rem;
+            border-top: 1px dashed var(--border);
+            flex-wrap: wrap;
+        }
+        .trust-row span { font-size: 0.72rem; color: var(--text-muted); }
+        footer { text-align: center; padding: 1.2rem; color: var(--text-muted); font-size: 0.8rem; }
+        @media (max-width: 480px) {
+            .login-container { border-radius: var(--radius-lg); }
+            .login-header h2 { font-size: 1.3rem; }
+        }
+</style>
+</head>
+<body>
+    <div class="ambient-bg"></div>
+
+    <div class="boot-loader" aria-hidden="true">
+        <div class="boot-ring"><span class="boot-logo">🛒</span></div>
+        <div class="boot-title">NOVA <b>STORE</b></div>
+        <div class="boot-bar"></div>
+    </div>
+
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="/" class="navbar-brand">
+                <span class="brand-mark">🛒</span>
+                <span class="brand-name">NOVA <b>STORE</b></span>
+            </a>
+            <div class="navbar-menu">
+                <div class="nav-actions">
+                    <button id="theme-toggle" class="icon-btn" aria-label="تغییر تم">☀️</button>
+                    <a href="/cart" class="icon-btn" aria-label="سبد خرید">🛍</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="auth-wrap">
+        <div class="auth-orbs" aria-hidden="true">
+            <div class="orb"></div>
+            <div class="orb"></div>
+            <div class="orb"></div>
+        </div>
+
+        <div class="login-container">
+            <div class="login-header">
+                <div class="logo-badge">🛒</div>
+                <h2>خوش آمدید</h2>
+                <p>به بوتیک پوشاک NOVA STORE</p>
+            </div>
+
+            <div class="tabs" role="tablist">
+                <button class="tab-btn active" role="tab" onclick="switchTab(event, 'login')">ورود</button>
+                <button class="tab-btn" role="tab" onclick="switchTab(event, 'register')">ثبت نام</button>
+            </div>
+
+            <div id="login" class="tab-content active">
+                <div class="error-message" id="login-error"></div>
+                <div class="success-message" id="login-success"></div>
+
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="login-username">نام کاربری</label>
+                        <input type="text" id="login-username" placeholder="نام کاربری را وارد کنید" required autocomplete="username">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="login-password">رمز عبور</label>
+                        <input type="password" id="login-password" placeholder="رمز عبور را وارد کنید" required autocomplete="current-password">
+                    </div>
+
+                    <div class="loading" id="login-loading">
+                        <div class="spinner"></div>
+                        درحال بررسی اطلاعات...
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="login-btn">ورود به حساب</button>
+                </form>
+
+                <div class="switch-tab">
+                    حساب کاربری ندارید؟ <a onclick="switchTab(event, 'register')">ثبت نام کنید</a>
+                </div>
+            </div>
+
+            <div id="register" class="tab-content">
+                <div class="error-message" id="register-error"></div>
+                <div class="success-message" id="register-success"></div>
+
+                <form id="register-form">
+                    <div class="form-group">
+                        <label for="register-username">نام کاربری</label>
+                        <input type="text" id="register-username" placeholder="یک نام کاربری انتخاب کنید" required autocomplete="username">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="register-email">ایمیل</label>
+                        <input type="email" id="register-email" placeholder="ایمیل خود را وارد کنید" required autocomplete="email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="register-password">رمز عبور</label>
+                        <input type="password" id="register-password" placeholder="رمز عبور قوی انتخاب کنید" required autocomplete="new-password">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="register-confirm">تأیید رمز عبور</label>
+                        <input type="password" id="register-confirm" placeholder="رمز عبور را دوباره وارد کنید" required autocomplete="new-password">
+                    </div>
+
+                    <div class="loading" id="register-loading">
+                        <div class="spinner"></div>
+                        درحال ایجاد حساب...
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="register-btn">ایجاد حساب کاربری</button>
+                </form>
+
+                <div class="switch-tab">
+                    قبلاً ثبت نام کردی؟ <a onclick="switchTab(event, 'login')">وارد شوید</a>
+                </div>
+            </div>
+
+            <div class="trust-row">
+                <span>🔒 اتصال امن</span>
+                <span>🛡️ حفظ حریم خصوصی</span>
+                <span>⚡ ورود سریع</span>
+            </div>
+        </div>
+    </div>
+
+    <footer>Created by MatinAlinaghian</footer>
+
+    <script src="/js/theme.js"></script>
+    <script src="/js/sound.js"></script>
+    <script src="/js/toast.js"></script>
+    <script src="/js/motion.js"></script>
+    <script>        function switchTab(evt, tab) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            document.getElementById(tab).classList.add('active');
+            evt.currentTarget.classList.add('active');
+            if (window.soundManager) window.soundManager.play('click');
+        }
+        function showError(message, formType) {
+            const errorEl = document.getElementById(`${formType}-error`);
+            errorEl.textContent = message;
+            errorEl.classList.add('show');
+            setTimeout(() => errorEl.classList.remove('show'), 3200);
+        }
+        function showSuccess(message, formType) {
+            const successEl = document.getElementById(`${formType}-success`);
+            successEl.textContent = message;
+            successEl.classList.add('show');
+            setTimeout(() => successEl.classList.remove('show'), 3200);
+        }
+        class MiniAPI {
+            constructor() { this.baseURL = window.location.origin; }
+            async request(endpoint, options = {}) {
+                const response = await fetch(`${this.baseURL}${endpoint}`, {
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                    ...options
+                });
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.error || 'خطای نامشخص');
+                return data;
+            }
+            login(username, password) {
+                return this.request('/api/login', { method: 'POST', body: JSON.stringify({ username, password }) });
+            }
+            register(username, email, password) {
+                return this.request('/api/register', { method: 'POST', body: JSON.stringify({ username, email, password }) });
+            }
+        }
+        const api = new MiniAPI();
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('login-username').value;
+            const password = document.getElementById('login-password').value;
+            const loading = document.getElementById('login-loading');
+            const btn = document.getElementById('login-btn');
+            loading.style.display = 'block';
+            btn.disabled = true;
+            try {
+                const result = await api.login(username, password);
+                localStorage.setItem('user_id', result.user_id);
+                localStorage.setItem('username', result.username);
+                localStorage.setItem('is_admin', result.is_admin);
+                showSuccess('ورود موفق! در حال انتقال...', 'login');
+                if (window.soundManager) window.soundManager.play('success');
+                setTimeout(() => {
+                    window.location.href = result.is_admin ? '/admin' : '/';
+                }, 900);
+            } catch (error) {
+                showError('❌ ' + error.message, 'login');
+            } finally {
+                loading.style.display = 'none';
+                btn.disabled = false;
+            }
+        });
+        document.getElementById('register-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('register-username').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            const confirm = document.getElementById('register-confirm').value;
+            const loading = document.getElementById('register-loading');
+            const btn = document.getElementById('register-btn');
+            if (password !== confirm) {
+                showError('❌ رمزهای عبور مطابقت ندارند', 'register');
+                return;
+            }
+            loading.style.display = 'block';
+            btn.disabled = true;
+            try {
+                await api.register(username, email, password);
+                showSuccess('ثبت نام موفق! اکنون می‌توانید وارد شوید.', 'register');
+                if (window.soundManager) window.soundManager.play('success');
+                setTimeout(() => {
+                    switchTab({ currentTarget: document.querySelector('[role="tab"]') }, 'login');
+                    document.getElementById('register-form').reset();
+                }, 1200);
+            } catch (error) {
+                showError('❌ ' + error.message, 'register');
+            } finally {
+                loading.style.display = 'none';
+                btn.disabled = false;
+            }
+        });
+</script>
+</body>
+</html>

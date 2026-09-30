@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جزئیات محصول — NOVA STORE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/light-theme.css">
+    <link rel="stylesheet" href="/css/dark-theme.css">
+    <style>        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 1.6rem;
+            flex-wrap: wrap;
+        }
+        .breadcrumb a { color: var(--text-secondary); text-decoration: none; }
+        .breadcrumb a:hover { color: var(--accent-2); }
+        .pd-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+            gap: clamp(1.5rem, 4vw, 3rem);
+            align-items: start;
+        }
+        .pd-layout > * { min-width: 0; max-width: 100%; }
+        .pd-visual { position: sticky; top: calc(var(--nav-h) + 16px); }
+        .pd-info h1 { font-size: clamp(1.4rem, 2.6vw, 2rem); font-weight: 800; margin: 0.3rem 0 0.6rem; }
+        .pd-price-row {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin: 1.1rem 0 1.4rem;
+            flex-wrap: wrap;
+        }
+        .pd-price { font-size: 1.7rem; font-weight: 800; color: var(--text-primary); }
+        .pd-price .currency { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; }
+        .pd-old { color: var(--text-muted); text-decoration: line-through; font-size: 1.05rem; }
+        .pd-badge {
+            display: inline-flex; align-items: center; gap: 0.3rem;
+            padding: 0.35rem 0.9rem;
+            border-radius: 99px;
+            font-size: 0.78rem; font-weight: 800;
+        }
+        .pd-badge.off { background: linear-gradient(120deg, #F43F5E, #FB7185); color: #FFF5F7; }
+        .pd-badge.stock-in { background: rgba(52, 211, 153, 0.12); color: var(--success); border: 1px solid rgba(52, 211, 153, 0.35); }
+        .pd-badge.stock-out { background: rgba(248, 113, 113, 0.12); color: var(--danger); border: 1px solid rgba(248, 113, 113, 0.35); }
+        .pd-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.9;
+            margin-bottom: 1.6rem;
+        }
+        .pd-specs {
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            background: var(--surface);
+            -webkit-backdrop-filter: blur(14px);
+            backdrop-filter: blur(14px);
+            padding: 1.2rem 1.4rem;
+            margin-bottom: 1.6rem;
+        }
+        .pd-specs h3 { font-size: 0.95rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.45rem; }
+        .spec-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px dashed var(--border);
+            font-size: 0.85rem;
+        }
+        .spec-row:last-child { border-bottom: none; }
+        .spec-row .k { color: var(--text-muted); }
+        .spec-row .v { color: var(--text-secondary); font-weight: 600; }
+        .pd-qty {
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+            margin-bottom: 1.4rem;
+            flex-wrap: wrap;
+        }
+        .qty-box {
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--border-strong);
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--bg-tertiary);
+        }
+        .qty-box button {
+            width: 42px; height: 46px;
+            background: none; border: none;
+            color: var(--accent-2);
+            font-size: 1.3rem; font-weight: 800;
+            cursor: pointer;
+            transition: background var(--dur-fast);
+        }
+        .qty-box button:hover { background: var(--accent-soft); }
+        .qty-box input {
+            width: 56px; height: 46px;
+            text-align: center;
+            background: none; border: none;
+            color: var(--text-primary);
+            font-family: inherit; font-weight: 700; font-size: 1rem;
+            -moz-appearance: textfield;
+        }
+        .qty-box input::-webkit-outer-spin-button,
+        .qty-box input::-webkit-inner-spin-button { -webkit-appearance: none; }
+        .pd-actions { display: flex; gap: 0.7rem; flex-wrap: wrap; }
+        .pd-actions .btn { padding: 0.95rem 1.8rem; font-size: 0.98rem; }
+        .pd-trust {
+            display: flex;
+            gap: 1.4rem;
+            margin-top: 1.6rem;
+            padding-top: 1.2rem;
+            border-top: 1px dashed var(--border);
+            flex-wrap: wrap;
+        }
+        .pd-trust span { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.78rem; color: var(--text-muted); }
+        @media (max-width: 960px) {
+            .pd-layout { grid-template-columns: minmax(0, 1fr); }
+            .pd-visual { position: static; }
+        }
+        @media (max-width: 480px) {
+            .pd-actions .btn { flex: 1 1 100%; justify-content: center; }
+        }
+</style>
+</head>
+<body>
+    <div class="ambient-bg"></div>
+
+    <div class="boot-loader" aria-hidden="true">
+        <div class="boot-ring"><span class="boot-logo">🛒</span></div>
+        <div class="boot-title">NOVA <b>STORE</b></div>
+        <div class="boot-bar"></div>
+    </div>
+
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="/" class="navbar-brand">
+                <span class="brand-mark">🛒</span>
+                <span class="brand-name">NOVA <b>STORE</b></span>
+            </a>
+            <div class="navbar-menu">
+                <a href="/" class="nav-link">خانه</a>
+                <a href="/products" class="nav-link active">محصولات</a>
+                <a href="/about" class="nav-link">درباره ما</a>
+                <a href="/cart" class="nav-link">سبد خرید</a>
+                <a href="/login" class="nav-link" id="login-link">ورود</a>
+                <a href="/admin" class="nav-link" id="admin-link" style="display: none;">پنل مدیریت</a>
+                <div class="nav-actions">
+                    <div style="position:relative">
+                        <button id="sound-toggle" class="icon-btn" aria-label="تنظیمات صدا" title="تنظیمات صدا">🔇</button>
+                        <span class="sound-pop" id="sound-pop">
+                            <div class="sound-row"><span>صدا</span>
+                                <label class="switch"><input type="checkbox" id="sound-switch"><span class="track"></span></label>
+                            </div>
+                            <input type="range" id="sound-volume" min="0" max="1" step="0.05" aria-label="بلندی صدا">
+                            <div class="sound-label">بلندی صدا</div>
+                        </span>
+                    </div>
+                    <button id="theme-toggle" class="icon-btn" aria-label="تغییر تم">☀️</button>
+                    <a href="/products?wishlist=1" class="icon-btn" aria-label="علاقه‌مندی‌ها" title="علاقه‌مندی‌ها">♥<span class="badge-count" id="wl-count" style="display:none">0</span></a>
+                    <a href="/cart" class="icon-btn" aria-label="سبد خرید">
+                        🛍<span class="badge-count" id="cart-count">0</span>
+                    </a>
+                    <button id="logout-btn" class="icon-btn" style="display:none" aria-label="خروج">⎋</button>
+                    <button id="hamburger" class="hamburger" aria-label="منو"><span></span><span></span><span></span></button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="menu-overlay" id="menu-overlay"></div>
+    <aside class="mobile-menu" id="mobile-menu" aria-label="منوی موبایل">
+        <div class="mobile-menu-head">
+            <span class="brand-name"><b>NOVA</b> STORE</span>
+            <button class="icon-btn" id="mm-close" aria-label="بستن منو">✕</button>
+        </div>
+        <nav>
+            <a href="/" class="mnav-link">🏠 صفحه اصلی</a>
+            <a href="/products" class="mnav-link">🛍️ محصولات</a>
+            <a href="/cart" class="mnav-link">🛒 سبد خرید</a>
+            <a href="/orders" class="mnav-link">📦 سفارش‌های من</a>
+            <a href="/about" class="mnav-link">💠 درباره ما</a>
+            <a href="/login" class="mnav-link" id="mm-login">ورود / ثبت‌نام</a>
+            <a href="/admin" class="mnav-link" id="mm-admin" style="display:none">⚙️ پنل مدیریت</a>
+        </nav>
+        <div class="mobile-menu-foot">
+            <button class="btn btn-ghost btn-block" id="mm-logout" style="display:none">خروج از حساب</button>
+        </div>
+    </aside>
+
+    <main class="container">
+        <div class="breadcrumb" id="breadcrumb">
+            <a href="/">خانه</a> <span>›</span> <a href="/products">محصولات</a> <span>›</span> <span id="bc-name">...</span>
+        </div>
+
+        <div class="pd-layout">
+            <div class="pd-visual">
+                <div class="pv-stage" id="pv-stage" style="min-height: 380px;">
+                    <div class="loading-block"><div class="spinner"></div><span>در حال بارگذاری محصول...</span></div>
+                </div>
+                <div class="pd-gallery" id="pd-gallery" style="display:none; margin-top: 0.8rem; gap:0.6rem; flex-wrap:wrap;"></div>
+            </div>
+
+            <div class="pd-info">
+                <div class="skeleton" id="pd-skeleton">
+                    <div class="loading-block"><div class="spinner"></div><span>در حال بارگذاری...</span></div>
+                </div>
+                <div id="pd-content" style="display:none">
+                    <span class="p-category" id="pd-category" style="font-size:0.8rem; font-weight:800; color:var(--accent-2); letter-spacing:0.5px;"></span>
+                    <h1 id="pd-name"></h1>
+                    <div class="pd-meta-row">
+                        <div class="product-rating" id="pd-rating"></div>
+                        <span class="mode3d-chip" id="mode3d-chip">◐ بررسی نمایش سه‌بعدی…</span>
+                    </div>
+
+                    <div class="pd-price-row">
+                        <span class="pd-price"><span id="pd-price"></span> <span class="currency">تومان</span></span>
+                        <span class="pd-old" id="pd-old" style="display:none"></span>
+                        <span class="pd-badge off" id="pd-off" style="display:none"></span>
+                        <span class="pd-badge stock-in" id="pd-stock">✔ موجود در انبار</span>
+                    </div>
+
+                    <p class="pd-desc" id="pd-desc"></p>
+
+                    <div class="pd-specs">
+                        <h3>📋 مشخصات</h3>
+                        <div class="spec-row"><span class="k">دسته‌بندی</span><span class="v" id="spec-category">—</span></div>
+                        <div class="spec-row"><span class="k">موجودی انبار</span><span class="v" id="spec-stock">—</span></div>
+                        <div class="spec-row"><span class="k">کد محصول</span><span class="v" id="spec-id">—</span></div>
+                        <div class="spec-row"><span class="k">گارانتی</span><span class="v">۱۸ ماه گارانتی نووا</span></div>
+                        <div class="spec-row"><span class="k">زمان ارسال</span><span class="v">۱ تا ۳ روز کاری</span></div>
+                        <div class="spec-row"><span class="k">بازگشت کالا</span><span class="v">۷ روز، بدون قید و شرط</span></div>
+                    </div>
+
+                    <div class="pd-qty">
+                        <div class="qty-box">
+                            <button type="button" id="qty-minus" aria-label="کاهش">−</button>
+                            <input type="number" id="pd-qty-input" value="1" min="1" aria-label="تعداد">
+                            <button type="button" id="qty-plus" aria-label="افزایش">+</button>
+                        </div>
+                        <span class="stock-hint" id="pd-stock-hint"></span>
+                    </div>
+
+                    <div class="pd-actions">
+                        <button class="btn btn-primary" id="pd-add-cart">🛒 افزودن به سبد خرید</button>
+                        <button class="btn btn-success" id="pd-buy-now">⚡ خرید فوری</button>
+                        <button class="icon-btn wl-btn" id="pd-wish" aria-label="علاقه‌مندی">♡</button>
+                        <button class="icon-btn" id="pd-share" aria-label="اشتراک‌گذاری" title="اشتراک‌گذاری">↗</button>
+                    </div>
+
+                    <div class="pd-trust">
+                        <span>🚚 ارسال سریع</span>
+                        <span>🛡️ ضمانت اصالت</span>
+                        <span>↩️ ۷ روز بازگشت</span>
+                        <span>💳 پرداخت امن</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <section class="reviews-box mt-4 reveal" id="reviews">
+            <div class="section-head">
+                <div>
+                    <span class="eyebrow">Reviews</span>
+                    <h2>نظرات کاربران</h2>
+                </div>
+                <div class="rv-summary">
+                    <span class="rv-avg" id="rv-avg">—</span>
+                    <span class="rv-stars" id="rv-avg-stars">★★★★★</span>
+                    <span class="rv-count" id="rv-count"></span>
+                </div>
+            </div>
+
+            <form class="rv-form" id="rv-form">
+                <div class="rv-form-head">
+                    <span class="rv-form-title">نظر شما</span>
+                    <div class="star-picker" id="star-picker" role="radiogroup" aria-label="امتیاز شما">
+                        <button type="button" class="star" data-v="1" aria-label="۱ ستاره">☆</button>
+                        <button type="button" class="star" data-v="2" aria-label="۲ ستاره">☆</button>
+                        <button type="button" class="star" data-v="3" aria-label="۳ ستاره">☆</button>
+                        <button type="button" class="star" data-v="4" aria-label="۴ ستاره">☆</button>
+                        <button type="button" class="star" data-v="5" aria-label="۵ ستاره">☆</button>
+                    </div>
+                </div>
+                <textarea id="rv-text" rows="3" placeholder="تجربه خود از این محصول را بنویسید…" required></textarea>
+                <div class="rv-form-foot">
+                    <span class="rv-hint">امتیاز و نظر شما فقط روی همین مرورگر ذخیره می‌شود</span>
+                    <button class="btn btn-primary btn-small" type="submit">ثبت نظر</button>
+                </div>
+            </form>
+
+            <div class="rv-list" id="rv-list"></div>
+        </section>
+
+        
+        <section class="mt-4">
+            <div class="section-head reveal">
+                <div>
+                    <span class="eyebrow">Related</span>
+                    <h2>محصولات مرتبط</h2>
+                </div>
+            </div>
+            <div id="related-grid" class="products-grid"></div>
+        </section>
+
+        
+        <section class="mt-4" id="recent-section" style="display:none">
+            <div class="section-head reveal">
+                <div>
+                    <span class="eyebrow">Recently</span>
+                    <h2>به تازگی دیده‌اید</h2>
+                </div>
+            </div>
+            <div id="recent-grid" class="products-grid"></div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="foot-brand">NOVA STORE</div>
+        <nav class="foot-links" aria-label="لینک‌های پاورقی">
+            <a href="/">خانه</a>
+            <a href="/products">محصولات</a>
+            <a href="/cart">سبد خرید</a>
+            <a href="/orders">سفارش‌های من</a>
+            <a href="/about">درباره ما</a>
+            <a href="/login">ورود / ثبت‌نام</a>
+        </nav>
+        <a class="foot-credit" href="/about">✦ Created by MatinAlinaghian</a>
+    </footer>
+
+    <script src="/js/theme.js"></script>
+    <script src="/js/sound.js"></script>
+    <script src="/js/toast.js"></script>
+    <script src="/js/motion.js"></script>
+    <script src="/js/product3d.js"></script>
+    <script src="/js/api.js"></script>
+    <script>        const params = new URLSearchParams(window.location.search);
+        const productId = parseInt(params.get('id'));
+        let product = null;
+        let allProducts = [];
+        let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        function updateCartBadge() {
+            const el = document.getElementById('cart-count');
+            if (el) el.textContent = cart.reduce((s, i) => s + i.quantity, 0);
+            const wl = document.getElementById('wl-count');
+            if (wl) wl.style.display = wishlist.length ? 'grid' : 'none';
+            if (wl) wl.textContent = wishlist.length;
+        }
+        function authUI() {
+            const userId = localStorage.getItem('user_id');
+            const loginLink = document.getElementById('login-link');
+            const logoutBtn = document.getElementById('logout-btn');
+            const adminLink = document.getElementById('admin-link');
+            const mmLogin = document.getElementById('mm-login');
+            const mmAdmin = document.getElementById('mm-admin');
+            const mmLogout = document.getElementById('mm-logout');
+            if (userId) {
+                if (loginLink) loginLink.style.display = 'none';
+                if (mmLogin) mmLogin.style.display = 'none';
+                if (logoutBtn) { logoutBtn.style.display = 'inline-block'; logoutBtn.onclick = doLogout; }
+                if (['true', '1', 'yes'].includes((localStorage.getItem('is_admin') || '').toLowerCase())) {
+                    if (adminLink) adminLink.style.display = 'inline-block';
+                    if (mmAdmin) mmAdmin.style.display = 'flex';
+                }
+                if (mmLogout) {
+                    mmLogout.style.display = 'block';
+                    mmLogout.onclick = doLogout;
+                }
+            }
+            const burger = document.getElementById('hamburger');
+            const menu = document.getElementById('mobile-menu');
+            const overlay = document.getElementById('menu-overlay');
+            const close = () => { menu.classList.remove('open'); overlay.classList.remove('show'); };
+            if (burger) burger.addEventListener('click', () => { menu.classList.add('open'); overlay.classList.add('show'); });
+            if (overlay) overlay.addEventListener('click', close);
+            const mmClose = document.getElementById('mm-close');
+            if (mmClose) mmClose.addEventListener('click', close);
+        }
+        async function doLogout() {
+            try { await api.logout(); } catch (e) {}
+            clearUserData();
+            window.location.href = '/';
+        }
+        function priceOf(p) {
+            return (p.discount_price && p.discount_price < p.price) ? p.discount_price : p.price;
+        }
+        async function loadProduct() {
+            if (!productId) {
+                document.getElementById('pd-skeleton').innerHTML = '<div class="loading-block"><span>محصول یافت نشد</span><a href="/products" class="btn btn-primary btn-small">مشاهده محصولات</a></div>';
+                return;
+            }
+            try {
+                product = await api.getProduct(productId);
+                allProducts = await api.getProducts();
+                renderProduct();
+                renderRelated();
+            } catch (err) {
+                document.getElementById('pd-skeleton').innerHTML = `<div class="loading-block"><span>⚠️ ${err.message || 'خطا در بارگذاری محصول'}</span><a href="/products" class="btn btn-primary btn-small">بازگشت به فروشگاه</a></div>`;
+            }
+        }
+        function renderProduct() {
+            const hasDiscount = product.discount_price && product.discount_price < product.price;
+            const displayPrice = priceOf(product);
+            const outOfStock = (product.quantity || 0) <= 0;
+            document.getElementById('bc-name').textContent = product.name;
+            document.title = `${product.name} — NOVA STORE`;
+            document.getElementById('pd-category').textContent = product.category || 'عمومی';
+            document.getElementById('pd-name').textContent = product.name;
+            document.getElementById('pd-rating').innerHTML = `★★★★<span>★</span> <span class="rating-count">(${(4 + ((product.id * 7) % 10) / 10).toFixed(1)})</span>`;
+            document.getElementById('pd-price').textContent = displayPrice.toLocaleString('fa-IR');
+            if (hasDiscount) {
+                document.getElementById('pd-old').style.display = 'inline';
+                document.getElementById('pd-old').textContent = product.price.toLocaleString('fa-IR') + ' تومان';
+                const off = document.getElementById('pd-off');
+                off.style.display = 'inline-flex';
+                off.textContent = `٪${product.discount_percent || Math.round((1 - product.discount_price / product.price) * 100)} تخفیف`;
+            }
+            const stockBadge = document.getElementById('pd-stock');
+            if (outOfStock) {
+                stockBadge.className = 'pd-badge stock-out';
+                stockBadge.textContent = '✖ ناموجود';
+            }
+            document.getElementById('pd-desc').textContent = product.description || 'توضیحاتی برای این محصول ثبت نشده است.';
+            document.getElementById('spec-category').textContent = product.category || '—';
+            document.getElementById('spec-stock').textContent = outOfStock ? 'ناموجود' : `${product.quantity} عدد`;
+            document.getElementById('spec-id').textContent = `NV-${String(product.id).padStart(4, '0')}`;
+            const hint = document.getElementById('pd-stock-hint');
+            if (!outOfStock && product.quantity <= 5) {
+                hint.textContent = `تنها ${product.quantity} عدد باقی مانده!`;
+                hint.classList.add('low');
+            } else if (outOfStock) {
+                hint.textContent = 'فعلاً موجود نیست';
+                hint.classList.add('out');
+            }
+            document.getElementById('pd-add-cart').disabled = outOfStock;
+            document.getElementById('pd-buy-now').disabled = outOfStock;
+            const wished = wishlist.includes(product.id);
+            const wishBtn = document.getElementById('pd-wish');
+            wishBtn.classList.toggle('wished', wished);
+            wishBtn.textContent = wished ? '♥' : '♡';
+            document.getElementById('pd-skeleton').style.display = 'none';
+            document.getElementById('pd-content').style.display = 'block';
+            const stage = document.getElementById('pv-stage');
+            Product3D.mount(stage, product).then(mode => {
+                const chip = document.getElementById('mode3d-chip');
+                if (!chip) return;
+                if (mode === '3d') {
+                    chip.innerHTML = '✦ نمایش سه‌بعدی تعاملی';
+                    chip.className = 'mode3d-chip is-3d';
+                } else if (mode === '2.5d') {
+                    chip.innerHTML = '◈ نمایش سه‌بعدی ۲.۵بعدی';
+                    chip.className = 'mode3d-chip is-25d';
+                } else if (mode === 'off') {
+                    chip.innerHTML = '▭ تصویر عادی';
+                    chip.className = 'mode3d-chip';
+                } else {
+                    chip.innerHTML = '▭ نمایش ایستا';
+                    chip.className = 'mode3d-chip';
+                }
+            });
+        }
+        function renderRelated() {
+            const grid = document.getElementById('related-grid');
+            if (!grid) return;
+            const related = allProducts
+                .filter(p => p.id !== product.id)
+                .sort((a, b) => {
+                    const sa = a.category === product.category ? 0 : 1;
+                    const sb = b.category === product.category ? 0 : 1;
+                    return sa - sb;
+                })
+                .slice(0, 4);
+            if (!related.length) {
+                grid.closest('section').style.display = 'none';
+                return;
+            }
+            grid.innerHTML = related.map((p, i) => relatedCard(p, i)).join('');
+            Motion.rescan();
+            renderRecent();
+        }
+        function trackRecent() {
+            if (!productId) return;
+            let rec = [];
+            try { rec = JSON.parse(localStorage.getItem('recently_viewed')) || []; } catch (e) {}
+            rec = [productId, ...rec.filter(id => id !== productId)].slice(0, 8);
+            localStorage.setItem('recently_viewed', JSON.stringify(rec));
+        }
+        function renderRecent() {
+            const section = document.getElementById('recent-section');
+            const grid = document.getElementById('recent-grid');
+            if (!section || !grid || !allProducts.length) return;
+            let rec = [];
+            try { rec = JSON.parse(localStorage.getItem('recently_viewed')) || []; } catch (e) {}
+            const items = rec
+                .filter(id => id !== productId)
+                .map(id => allProducts.find(p => p.id === id))
+                .filter(Boolean)
+                .slice(0, 4);
+            if (!items.length) return;
+            grid.innerHTML = items.map((p, i) => relatedCard(p, i)).join('');
+            section.style.display = 'block';
+            Motion.rescan();
+        }
+        async function shareProduct() {
+            if (!product) return;
+            const url = window.location.href;
+            const data = { title: product.name, text: `${product.name} — NOVA STORE`, url };
+            try {
+                if (navigator.share) {
+                    await navigator.share(data);
+                    return;
+                }
+                await navigator.clipboard.writeText(url);
+                Toast.show('لینک محصول کپی شد 🔗', 'success', 2200);
+            } catch (e) {
+                Toast.show('امکان اشتراک‌گذاری نبود', 'info', 2000);
+            }
+        }
+        const rvKey = () => `reviews_${productId}`;
+        let rvRating = 5;
+        function getReviews() {
+            try { return JSON.parse(localStorage.getItem(rvKey())) || []; } catch (e) { return []; }
+        }
+        function renderReviews() {
+            const list = document.getElementById('rv-list');
+            if (!list) return;
+            const reviews = getReviews();
+            const avgEl = document.getElementById('rv-avg');
+            const starsEl = document.getElementById('rv-avg-stars');
+            const countEl = document.getElementById('rv-count');
+            if (reviews.length) {
+                const avg = reviews.reduce((s, r) => s + r.stars, 0) / reviews.length;
+                avgEl.textContent = avg.toLocaleString('fa-IR', { minimumFractionDigits: 1 });
+                starsEl.textContent = '★★★★★'.slice(0, Math.round(avg)) + '☆☆☆☆☆'.slice(0, 5 - Math.round(avg));
+                countEl.textContent = `از ${reviews.length.toLocaleString('fa-IR')} نظر`;
+            } else {
+                avgEl.textContent = '—';
+                starsEl.textContent = '★★★★★';
+                countEl.textContent = 'اولین نفری باشید که نظر می‌دهد';
+            }
+            list.innerHTML = reviews.map((r, i) => `
+                <article class="rv-item" style="animation-delay:${Math.min(i * 60, 300)}ms">
+                    <div class="rv-item-head">
+                        <span class="rv-avatar">${(r.name || 'م').slice(0, 1)}</span>
+                        <div>
+                            <b>${r.name || 'کاربر NOVA'}</b>
+                            <span class="rv-date">${r.date || ''}</span>
+                        </div>
+                        <span class="rv-stars small">${'★'.repeat(r.stars)}${'☆'.repeat(5 - r.stars)}</span>
+                    </div>
+                    <p>${(r.text || '').replace(/</g, '&lt;')}</p>
+                </article>`).join('') || '<div class="rv-empty">هنوز نظری ثبت نشده است — اولین نفر باشید ✍️</div>';
+        }
+        function setupReviews() {
+            const picker = document.getElementById('star-picker');
+            if (picker) {
+                const stars = [...picker.querySelectorAll('.star')];
+                const paint = (v) => stars.forEach(s => {
+                    const on = parseInt(s.dataset.v) <= v;
+                    s.textContent = on ? '★' : '☆';
+                    s.classList.toggle('on', on);
+                });
+                paint(rvRating);
+                stars.forEach(s => {
+                    s.addEventListener('click', () => { rvRating = parseInt(s.dataset.v); paint(rvRating); });
+                });
+            }
+            const form = document.getElementById('rv-form');
+            if (form) {
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const text = document.getElementById('rv-text').value.trim();
+                    if (!text) return;
+                    const reviews = getReviews();
+                    reviews.unshift({
+                        stars: rvRating,
+                        text,
+                        name: localStorage.getItem('username') || 'کاربر NOVA',
+                        date: new Date().toLocaleDateString('fa-IR')
+                    });
+                    localStorage.setItem(rvKey(), JSON.stringify(reviews.slice(0, 30)));
+                    form.reset();
+                    rvRating = 5;
+                    document.querySelectorAll('#star-picker .star').forEach((s, i) => {
+                        const on = i < 5;
+                        s.textContent = on ? '★' : '☆';
+                        s.classList.toggle('on', on);
+                    });
+                    renderReviews();
+                    if (window.soundManager) window.soundManager.play('success');
+                    Toast.show('نظر شما ثبت شد 🙏', 'success', 2200);
+                });
+            }
+            renderReviews();
+        }
+        function relatedCard(p, i) {
+            const hasDiscount = p.discount_price && p.discount_price < p.price;
+            const displayPrice = priceOf(p);
+            const outOfStock = (p.quantity || 0) <= 0;
+            const wished = wishlist.includes(p.id);
+            const desc = (p.description || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+            return `
+            <article class="product-card" data-id="${p.id}" onclick="window.location.href='/product?id=${p.id}'">
+                <div class="product-image">
+                    <img src="${p.image_url || 'https://via.placeholder.com/400x300'}" alt="${p.name}" loading="lazy" decoding="async">
+                    <div class="product-badges">
+                        ${hasDiscount ? `<span class="badge badge-discount">٪${p.discount_percent || ''} تخفیف</span>` : ''}
+                        ${outOfStock ? `<span class="badge badge-out">ناموجود</span>` : ''}
+                    </div>
+                    <div class="product-actions">
+                        <button class="product-action-btn wl-btn ${wished ? 'wished' : ''}" aria-label="علاقه‌مندی" onclick="event.stopPropagation(); toggleWish(${p.id}, this)">${wished ? '♥' : '♡'}</button>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <span class="p-category">${p.category || 'عمومی'}</span>
+                    <h3>${p.name}</h3>
+                    <div class="product-footer">
+                        <span class="price-display">
+                            <span class="current-price-row"><span class="discount-price">${displayPrice.toLocaleString('fa-IR')}</span><span class="currency">تومان</span></span>
+                        </span>
+                        <button class="btn btn-primary btn-small" ${outOfStock ? 'disabled' : ''} onclick="event.stopPropagation(); addToCart(${p.id}, '${(p.name || '').replace(/'/g, "\\'")}', ${displayPrice}, '${p.image_url || ''}', '${desc}')">🛒 افزودن</button>
+                    </div>
+                </div>
+            </article>`;
+        }
+        function toggleWish(id, btn) {
+            const idx = wishlist.indexOf(id);
+            if (idx >= 0) { wishlist.splice(idx, 1); btn.classList.remove('wished'); btn.innerHTML = '♡'; }
+            else { wishlist.push(id); btn.classList.add('wished'); btn.innerHTML = '♥'; }
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+            if (window.soundManager) window.soundManager.play('wish');
+            Toast.show(idx >= 0 ? 'از علاقه‌مندی‌ها حذف شد' : 'به علاقه‌مندی‌ها اضافه شد ♥', idx >= 0 ? 'info' : 'success', 2000);
+            const wl = document.getElementById('wl-count');
+            if (wl) { wl.textContent = wishlist.length; wl.style.display = wishlist.length ? 'grid' : 'none'; }
+        }
+        function addToCart(id, name, price, imageUrl, description) {
+            const item = cart.find(i => i.product_id === id);
+            const qty = Math.max(1, parseInt(document.getElementById('pd-qty-input')?.value) || 1);
+            if (item) item.quantity += qty;
+            else cart.push({ product_id: id, name, price, image_url: imageUrl, description, quantity: qty });
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartBadge();
+            if (window.soundManager) window.soundManager.play('add');
+            Toast.show(`${qty} × ${name} به سبد اضافه شد`, 'success', 2400);
+            const stage = document.getElementById('pv-stage');
+            const target = document.querySelector('a.icon-btn[aria-label="سبد خرید"]');
+            if (stage && target) Motion.flyToCart(stage, target);
+            const btn = document.getElementById('pd-add-cart');
+            btn.classList.add('adding');
+            setTimeout(() => btn.classList.remove('adding'), 550);
+        }
+        function buyNow() {
+            addToCart(product.id, product.name, priceOf(product), product.image_url || '', product.description || '');
+            setTimeout(() => { window.location.href = '/cart'; }, 500);
+        }
+        document.getElementById('qty-minus').addEventListener('click', () => {
+            const input = document.getElementById('pd-qty-input');
+            input.value = Math.max(1, parseInt(input.value) - 1);
+        });
+        document.getElementById('qty-plus').addEventListener('click', () => {
+            const input = document.getElementById('pd-qty-input');
+            const max = product ? Math.max(1, product.quantity || 99) : 99;
+            input.value = Math.min(max, parseInt(input.value) + 1);
+        });
+        document.getElementById('pd-add-cart').addEventListener('click', () => {
+            if (!product) return;
+            addToCart(product.id, product.name, priceOf(product), product.image_url || '', product.description || '');
+        });
+        document.getElementById('pd-buy-now').addEventListener('click', buyNow);
+        document.getElementById('pd-wish').addEventListener('click', (e) => toggleWish(product.id, e.currentTarget));
+        const shareBtn = document.getElementById('pd-share');
+        if (shareBtn) shareBtn.addEventListener('click', shareProduct);
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCartBadge();
+            authUI();
+            setupReviews();
+            trackRecent();
+            loadProduct();
+        });
+</script>
+</body>
+</html>
